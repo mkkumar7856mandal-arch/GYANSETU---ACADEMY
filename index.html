@@ -273,7 +273,7 @@
 <!-- NAVBAR -->
 <nav>
   <div class="nav-logo">
-    <img src="https://i.imgur.com/placeholder.png" alt="Gyansetu Logo" id="navLogoImg" onerror="this.style.display='none'">
+    <img src="logo.png" alt="Gyansetu Logo" id="navLogoImg" onerror="this.style.display='none'">
     <div class="nav-logo-text">
       ज्ञानसेतु एकेडमी
       <span>Gyansetu Academy</span>
@@ -862,12 +862,12 @@
 <a href="https://wa.me/917856803831?text=Hello%20Sir%2C%20Mujhe%20Gyansetu%20Academy%20ke%20baare%20mein%20jankari%20chahiye." class="whatsapp-float" target="_blank" title="WhatsApp पर Chat करें">💬</a>
 
 <script>
-  // Load uploaded logo
+  // Load uploaded logo from same folder
   window.addEventListener('load', function() {
-    // Since the logo is uploaded, we use a placeholder — in production replace with actual logo URL
     const logos = document.querySelectorAll('#heroLogo, #navLogoImg');
     logos.forEach(img => {
-      img.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" rx="50" fill="%231a3ac4"/><text x="50" y="65" text-anchor="middle" font-size="40" fill="white">G</text></svg>';
+      img.src = 'logo.png';
+      img.style.display = 'block';
     });
   });
 
