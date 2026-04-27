@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Series Portal — ज्ञानसेतु एकेडमी</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-dark: #0a1f6e;
+  --blue-mid: #1a3ac4;
+  --blue-bright: #2563eb;
+  --cyan: #00d4ff;
+  --cyan-light: #e0f7ff;
+  --gold: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --white: #fff;
+  --bg: #f0f6ff;
+  --shadow: 0 4px 24px rgba(10,31,110,0.10);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Baloo 2',sans-serif; background:var(--bg); color:var(--blue-dark); }
+
+/* HEADER */
+.header {
+  background:linear-gradient(135deg,#0a1f6e 0%,#1a3ac4 60%,#00aaff 100%);
+  padding:20px 24px; position:sticky; top:0; z-index:100;
+  box-shadow:0 2px 20px rgba(10,31,110,0.3);
+}
+.header-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.logo img { width:44px; height:44px; border-radius:50%; object-fit:contain; background:#fff; padding:3px; }
+.logo-text { color:#fff; font-weight:800; font-size:1.1rem; line-height:1.2; }
+.logo-text span { display:block; font-size:0.72rem; opacity:0.8; font-weight:500; }
+.header-right { display:flex; align-items:center; gap:12px; }
+.student-info { background:rgba(255,255,255,0.15); border-radius:50px; padding:8px 16px; color:#fff; font-size:0.85rem; display:flex; align-items:center; gap:8px; cursor:pointer; }
+.home-btn { background:var(--cyan); color:var(--blue-dark); padding:8px 18px; border-radius:50px; text-decoration:none; font-weight:700; font-size:0.85rem; }
+
+/* HERO */
+.hero { background:linear-gradient(135deg,#0a1f6e,#1a3ac4); padding:40px 24px 60px; text-align:center; }
+.hero h1 { font-size:clamp(1.6rem,4vw,2.8rem); font-weight:800; color:#fff; margin-bottom:8px; }
+.hero p { color:rgba(255,255,255,0.8); font-size:1rem; margin-bottom:24px; }
+.hero-stats { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
+.hero-stat { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:16px; padding:16px 24px; color:#fff; text-align:center; }
+.hero-stat .num { font-size:2rem; font-weight:800; color:var(--cyan); }
+.hero-stat .lbl { font-size:0.78rem; opacity:0.8; }
+
+/* STUDENT LOGIN */
+.login-bar { max-width:500px; margin:-24px auto 0; background:#fff; border-radius:16px; padding:20px 24px; box-shadow:0 8px 32px rgba(10,31,110,0.2); position:relative; z-index:10; }
+.login-bar h3 { font-size:1rem; font-weight:700; margin-bottom:12px; color:var(--blue-dark); }
+.login-row { display:flex; gap:10px; }
+.login-input { flex:1; padding:10px 14px; border:2px solid #e5eaf5; border-radius:50px; font-family:'Baloo 2',sans-serif; font-size:0.9rem; outline:none; }
+.login-input:focus { border-color:var(--blue-bright); }
+.login-btn { background:linear-gradient(135deg,var(--blue-mid),var(--cyan)); color:#fff; border:none; padding:10px 22px; border-radius:50px; font-weight:700; cursor:pointer; font-family:'Baloo 2',sans-serif; white-space:nowrap; }
+
+/* MAIN */
+.main { max-width:1100px; margin:40px auto; padding:0 16px; }
+
+/* CLASS TABS */
+.class-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
+.class-tab { padding:10px 20px; border-radius:50px; border:2px solid #e5eaf5; background:#fff; font-weight:700; font-size:0.88rem; cursor:pointer; transition:0.2s; font-family:'Baloo 2',sans-serif; color:var(--blue-dark); }
+.class-tab:hover { border-color:var(--blue-bright); color:var(--blue-bright); }
+.class-tab.active { background:linear-gradient(135deg,var(--blue-mid),var(--cyan)); color:#fff; border-color:transparent; }
+
+/* SUBJECT GRID */
+.subject-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+
+/* SUBJECT CARD */
+.subject-card { background:#fff; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); transition:transform 0.2s; }
+.subject-card:hover { transform:translateY(-4px); }
+.subject-header { padding:20px; display:flex; align-items:center; gap:14px; }
+.subject-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
+.subject-title { font-size:1.1rem; font-weight:800; color:var(--blue-dark); }
+.subject-meta { font-size:0.8rem; color:#6b7280; margin-top:2px; }
+.subject-progress { padding:0 20px; margin-bottom:14px; }
+.progress-bar { background:#f0f6ff; border-radius:50px; height:6px; }
+.progress-fill { height:100%; border-radius:50px; transition:width 0.5s; }
+.progress-text { display:flex; justify-content:space-between; font-size:0.75rem; color:#6b7280; margin-top:4px; }
+
+/* CHAPTER LIST */
+.chapter-list { padding:0 12px 12px; }
+.chapter-item { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:12px; margin-bottom:6px; transition:0.2s; cursor:pointer; }
+.chapter-item:hover { background:var(--cyan-light); }
+.chapter-item.locked { opacity:0.5; cursor:not-allowed; }
+.chapter-left { display:flex; align-items:center; gap:10px; }
+.chapter-num { width:28px; height:28px; border-radius:50%; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; color:var(--blue-dark); flex-shrink:0; }
+.chapter-name { font-size:0.88rem; font-weight:600; color:var(--blue-dark); }
+.chapter-sub { font-size:0.75rem; color:#6b7280; }
+.chapter-right { display:flex; align-items:center; gap:8px; }
+.test-badge { font-size:0.72rem; padding:3px 10px; border-radius:50px; font-weight:700; }
+.badge-available { background:#d1fae5; color:#065f46; }
+.badge-coming { background:#fef3c7; color:#92400e; }
+.badge-done { background:#dbeafe; color:#1e40af; }
+.start-test-btn { background:linear-gradient(135deg,var(--blue-mid),var(--cyan)); color:#fff; border:none; padding:6px 14px; border-radius:50px; font-size:0.78rem; font-weight:700; cursor:pointer; font-family:'Baloo 2',sans-serif; white-space:nowrap; }
+.lock-icon { font-size:0.9rem; }
+
+/* LEADERBOARD */
+.leaderboard-section { margin-top:48px; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.section-title { font-size:1.4rem; font-weight:800; color:var(--blue-dark); }
+.leaderboard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+.leaderboard-card { background:#fff; border-radius:16px; padding:20px; box-shadow:var(--shadow); }
+.leaderboard-card h4 { font-size:0.95rem; font-weight:700; margin-bottom:14px; color:var(--blue-dark); }
+.lb-item { display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid #f0f6ff; }
+.lb-item:last-child { border-bottom:none; }
+.lb-rank { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.8rem; flex-shrink:0; }
+.rank-1 { background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; }
+.rank-2 { background:linear-gradient(135deg,#9ca3af,#6b7280); color:#fff; }
+.rank-3 { background:linear-gradient(135deg,#cd7c2f,#92400e); color:#fff; }
+.rank-other { background:var(--bg); color:var(--blue-dark); }
+.lb-name { flex:1; font-size:0.88rem; font-weight:600; }
+.lb-score { font-size:0.85rem; font-weight:800; color:var(--blue-bright); }
+
+/* MY PROGRESS */
+.progress-section { margin-top:40px; background:#fff; border-radius:20px; padding:28px; box-shadow:var(--shadow); }
+.progress-section h3 { font-size:1.2rem; font-weight:800; margin-bottom:20px; }
+.progress-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:14px; }
+.prog-card { background:var(--bg); border-radius:14px; padding:16px; text-align:center; }
+.prog-num { font-size:1.8rem; font-weight:800; color:var(--blue-bright); }
+.prog-label { font-size:0.78rem; color:#6b7280; margin-top:2px; }
+
+/* TEST MODAL */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.open { display:flex; }
+.modal { background:#fff; border-radius:20px; padding:32px; max-width:480px; width:100%; }
+.modal h2 { font-size:1.3rem; font-weight:800; margin-bottom:8px; }
+.modal p { color:#6b7280; font-size:0.9rem; margin-bottom:20px; }
+.modal-info { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+.modal-info-item { background:var(--bg); border-radius:12px; padding:12px; text-align:center; }
+.modal-info-item .n { font-size:1.4rem; font-weight:800; color:var(--blue-bright); }
+.modal-info-item .l { font-size:0.78rem; color:#6b7280; }
+.modal-btns { display:flex; gap:10px; }
+.modal-start { flex:1; background:linear-gradient(135deg,var(--blue-mid),var(--cyan)); color:#fff; border:none; padding:13px; border-radius:50px; font-weight:800; font-size:1rem; cursor:pointer; font-family:'Baloo 2',sans-serif; }
+.modal-cancel { background:#f0f6ff; color:var(--blue-dark); border:none; padding:13px 20px; border-radius:50px; font-weight:700; cursor:pointer; font-family:'Baloo 2',sans-serif; }
+
+/* COMING SOON */
+.coming-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; padding:20px; }
+.coming-modal.open { display:flex; }
+.coming-box { background:#fff; border-radius:20px; padding:40px 32px; max-width:380px; width:100%; text-align:center; }
+
+/* FOOTER */
+footer { text-align:center; padding:28px 20px; color:#6b7280; font-size:0.85rem; margin-top:60px; border-top:1px solid #e5eaf5; }
+
+@media(max-width:600px) {
+  .hero-stats { gap:12px; }
+  .hero-stat { padding:12px 16px; }
+  .login-row { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="G" onerror="this.style.display='none'">
+      <div class="logo-text">ज्ञानसेतु एकेडमी <span>Test Series Portal</span></div>
+    </a>
+    <div class="header-right">
+      <div class="student-info" id="studentInfo" onclick="showLoginModal()">
+        👤 <span id="studentName">Login करें</span>
+      </div>
+      <a href="index.html" class="home-btn">🏠 Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🎯 Test Series Portal</h1>
+  <p>Class 6th से 12th तक — सभी subjects के Chapter-wise Tests</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">7</div><div class="lbl">Classes</div></div>
+    <div class="hero-stat"><div class="num">8+</div><div class="lbl">Subjects</div></div>
+    <div class="hero-stat"><div class="num">100+</div><div class="lbl">Chapters</div></div>
+    <div class="hero-stat"><div class="num">Free</div><div class="lbl">सबके लिए</div></div>
+  </div>
+</div>
+
+<!-- LOGIN BAR -->
+<div style="padding:0 16px;">
+  <div class="login-bar" id="loginBar">
+    <h3>👤 अपना नाम दर्ज करें — Progress Track करने के लिए</h3>
+    <div class="login-row">
+      <input class="login-input" id="nameInput" placeholder="अपना नाम लिखें..." onkeydown="if(event.key==='Enter')saveStudent()">
+      <button class="login-btn" onclick="saveStudent()">✅ शुरू करें</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- CLASS TABS -->
+  <div class="class-tabs" id="classTabs">
+    <button class="class-tab active" onclick="selectClass(this,'6')">📗 Class 6th</button>
+    <button class="class-tab" onclick="selectClass(this,'7')">📘 Class 7th</button>
+    <button class="class-tab" onclick="selectClass(this,'8')">📙 Class 8th</button>
+    <button class="class-tab" onclick="selectClass(this,'9')">📕 Class 9th</button>
+    <button class="class-tab" onclick="selectClass(this,'10')">🏆 Class 10th</button>
+    <button class="class-tab" onclick="selectClass(this,'11S')">🔬 Class 11th Science</button>
+    <button class="class-tab" onclick="selectClass(this,'11A')">📜 Class 11th Arts</button>
+    <button class="class-tab" onclick="selectClass(this,'12S')">🧪 Class 12th Science</button>
+    <button class="class-tab" onclick="selectClass(this,'12A')">📚 Class 12th Arts</button>
+  </div>
+
+  <!-- SUBJECT GRID -->
+  <div class="subject-grid" id="subjectGrid"></div>
+
+  <!-- MY PROGRESS -->
+  <div class="progress-section" id="progressSection">
+    <h3>📊 मेरी Progress — <span id="progressName">Guest</span></h3>
+    <div class="progress-cards">
+      <div class="prog-card"><div class="prog-num" id="totalTests">0</div><div class="prog-label">Tests दिए</div></div>
+      <div class="prog-card"><div class="prog-num" id="avgScore">0%</div><div class="prog-label">Average Score</div></div>
+      <div class="prog-card"><div class="prog-num" id="bestScore">0%</div><div class="prog-label">Best Score</div></div>
+      <div class="prog-card"><div class="prog-num" id="chapDone">0</div><div class="prog-label">Chapters Complete</div></div>
+    </div>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div style="margin-top:40px;">
+    <div style="font-size:1.4rem;font-weight:800;color:var(--blue-dark);margin-bottom:20px;">💡 Test Series कैसे Use करें?</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+      <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);text-align:center;">
+        <div style="font-size:2rem;margin-bottom:10px;">1️⃣</div>
+        <div style="font-weight:700;color:var(--blue-dark);margin-bottom:6px;">अपना नाम लिखें</div>
+        <div style="font-size:0.84rem;color:#6b7280;">ऊपर अपना नाम दर्ज करें ताकि progress save हो</div>
+      </div>
+      <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);text-align:center;">
+        <div style="font-size:2rem;margin-bottom:10px;">2️⃣</div>
+        <div style="font-weight:700;color:var(--blue-dark);margin-bottom:6px;">Class चुनें</div>
+        <div style="font-size:0.84rem;color:#6b7280;">ऊपर tabs में अपनी class select करें</div>
+      </div>
+      <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);text-align:center;">
+        <div style="font-size:2rem;margin-bottom:10px;">3️⃣</div>
+        <div style="font-weight:700;color:var(--blue-dark);margin-bottom:6px;">Chapter Test दें</div>
+        <div style="font-size:0.84rem;color:#6b7280;">"Test दें" button पर click करें और test शुरू करें</div>
+      </div>
+      <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);text-align:center;">
+        <div style="font-size:2rem;margin-bottom:10px;">4️⃣</div>
+        <div style="font-weight:700;color:var(--blue-dark);margin-bottom:6px;">Result देखें</div>
+        <div style="font-size:0.84rem;color:#6b7280;">Score और Explanation देखें — कमजोरी पहचानें</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFY SECTION -->
+  <div style="margin-top:32px;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));border-radius:20px;padding:32px;text-align:center;color:#fff;">
+    <div style="font-size:2.5rem;margin-bottom:12px;">🔔</div>
+    <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:8px;">नए Tests की Notification पाएं!</h3>
+    <p style="opacity:0.85;margin-bottom:20px;">हर हफ्ते नए Chapter Tests add होते हैं। WhatsApp पर जुड़ें और सबसे पहले जानें!</p>
+    <a href="https://wa.me/917856803831?text=Hello Sir, mujhe Test Series ke naye tests ki notification chahiye" target="_blank"
+      style="display:inline-block;background:#25d366;color:#fff;padding:13px 32px;border-radius:50px;font-weight:800;text-decoration:none;font-size:1rem;">
+      💬 WhatsApp पर Notify करें
+    </a>
+  </div>
+</div>
+
+<!-- TEST START MODAL -->
+<div class="modal-overlay" id="testModal">
+  <div class="modal">
+    <div style="font-size:2.5rem;margin-bottom:12px;" id="modalEmoji">📝</div>
+    <h2 id="modalTitle">Test</h2>
+    <p id="modalSub">Chapter details</p>
+    <div class="modal-info">
+      <div class="modal-info-item"><div class="n" id="modalQ">25</div><div class="l">प्रश्न</div></div>
+      <div class="modal-info-item"><div class="n" id="modalTime">30 min</div><div class="l">समय</div></div>
+      <div class="modal-info-item"><div class="n" id="modalMarks">50</div><div class="l">अंक</div></div>
+      <div class="modal-info-item"><div class="n" id="modalPass">20</div><div class="l">Pass Marks</div></div>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal()">❌ Cancel</button>
+      <button class="modal-start" id="modalStartBtn">🚀 Test शुरू करें</button>
+    </div>
+  </div>
+</div>
+
+<!-- COMING SOON MODAL -->
+<div class="coming-modal" id="comingModal">
+  <div class="coming-box">
+    <div style="font-size:3rem;margin-bottom:16px;">🔜</div>
+    <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:8px;">जल्द आ रहा है!</h2>
+    <p style="color:#6b7280;margin-bottom:20px;">यह test जल्द upload होगा। WhatsApp पर notify पाने के लिए:</p>
+    <a href="https://wa.me/917856803831?text=Hello Sir, mujhe test series ka notification chahiye" target="_blank" style="display:inline-block;background:#25d366;color:#fff;padding:12px 28px;border-radius:50px;font-weight:800;text-decoration:none;margin-bottom:12px;">💬 Notify करें</a>
+    <br>
+    <button onclick="closeComingModal()" style="background:#f0f6ff;border:none;padding:10px 24px;border-radius:50px;font-weight:700;cursor:pointer;font-family:'Baloo 2',sans-serif;margin-top:8px;">बंद करें</button>
+  </div>
+</div>
+
+<footer>
+  🎓 ज्ञानसेतु एकेडमी Test Series Portal | बिरौल, दरभंगा | 📞 7856803831<br>
+  <span style="font-size:0.78rem;">नए tests regularly add होते रहेंगे — WhatsApp पर जुड़े रहें!</span>
+</footer>
+
+<script>
+// ===== DATA =====
+const classData = {
+  '6': {
+    subjects: [
+      { name:'गणित (Math)', icon:'📐', color:'#1a3ac4', bg:'#e0f0ff',
+        chapters:[
+          {name:'अपनी संख्याओं की जानकारी', q:20, time:25, available:true, file:''},
+          {name:'पूर्ण संख्याएं', q:20, time:25, available:false},
+          {name:'संख्याओं के साथ खेलना', q:20, time:25, available:false},
+          {name:'आधारभूत ज्यामितीय अवधारणाएं', q:15, time:20, available:false},
+          {name:'प्रारंभिक आकारों को समझना', q:15, time:20, available:false},
+          {name:'पूर्णांक', q:20, time:25, available:false},
+        ]},
+      { name:'विज्ञान (Science)', icon:'🔬', color:'#10b981', bg:'#d1fae5',
+        chapters:[
+          {name:'भोजन: यह कहाँ से आता है?', q:15, time:20, available:false},
+          {name:'भोजन के घटक', q:15, time:20, available:false},
+          {name:'तंतु से वस्त्र तक', q:15, time:20, available:false},
+          {name:'वस्तुओं के समूह बनाना', q:15, time:20, available:false},
+        ]},
+      { name:'सामाजिक विज्ञान (SST)', icon:'🌍', color:'#f59e0b', bg:'#fef3c7',
+        chapters:[
+          {name:'क्या, कब, कहाँ और कैसे?', q:15, time:20, available:false},
+          {name:'आखेट-खाद्य संग्रह से भोजन', q:15, time:20, available:false},
+        ]},
+      { name:'हिन्दी (Hindi)', icon:'📖', color:'#8b5cf6', bg:'#ede9fe',
+        chapters:[
+          {name:'वह चिड़िया जो', q:15, time:20, available:false},
+          {name:'बचपन', q:15, time:20, available:false},
+        ]},
+      { name:'English', icon:'🔤', color:'#ef4444', bg:'#fee2e2',
+        chapters:[
+          {name:'Who Did Patrick\'s Homework?', q:15, time:20, available:false},
+          {name:'How the Dog Found Himself', q:15, time:20, available:false},
+        ]},
+    ]
+  },
+  '7': {
+    subjects: [
+      { name:'गणित (Math)', icon:'📐', color:'#1a3ac4', bg:'#e0f0ff',
+        chapters:[
+          {name:'पूर्णांक', q:20, time:25, available:false},
+          {name:'भिन्न एवं दशमलव', q:20, time:25, available:false},
+          {name:'आंकड़ों का प्रबंधन', q:20, time:25, available:false},
+          {name:'सरल समीकरण', q:20, time:25, available:false},
+          {name:'रेखा एवं कोण', q:15, time:20, available:false},
+        ]},
+      { name:'विज्ञान (Science)', icon:'🔬', color:'#10b981', bg:'#d1fae5',
+        chapters:[
+          {name:'पादपों में पोषण', q:15, time:20, available:false},
+          {name:'प्राणियों में पोषण', q:15, time:20, available:false},
+          {name:'ऊष्मा', q:15, time:20, available:false},
+        ]},
+      { name:'सामाजिक विज्ञान (SST)', icon:'🌍', color:'#f59e0b', bg:'#fef3c7',
+        chapters:[
+          {name:'हमारा पर्यावरण', q:15, time:20, available:false},
+          {name:'हमारे अतीत', q:15, time:20, available:false},
+        ]},
+    ]
+  },
+  '8': {
+    subjects: [
+      { name:'गणित (Math)', icon:'📐', color:'#1a3ac4', bg:'#e0f0ff',
+        chapters:[
+          {name:'परिमेय संख्याएं', q:20, time:25, available:false},
+          {name:'एक चर वाले रैखिक समीकरण', q:20, time:25, available:false},
+          {name:'चतुर्भुज को समझना', q:20, time:25, available:false},
+          {name:'व्यावहारिक ज्यामिति', q:15, time:20, available:false},
+          {name:'आंकड़ों का प्रबंधन', q:20, time:25, available:false},
+          {name:'वर्ग और वर्गमूल', q:20, time:25, available:false},
+        ]},
+      { name:'विज्ञान (Science)', icon:'🔬', color:'#10b981', bg:'#d1fae5',
+        chapters:[
+          {name:'फसल उत्पादन', q:15, time:20, available:false},
+          {name:'सूक्ष्मजीव', q:15, time:20, available:false},
+          {name:'संश्लेषित रेशे', q:15, time:20, available:false},
+        ]},
+    ]
+  },
+  '9': {
+    subjects: [
+      { name:'गणित (Math)', icon:'📐', color:'#1a3ac4', bg:'#e0f0ff',
+        chapters:[
+          {name:'संख्या पद्धति', q:25, time:30, available:false},
+          {name:'बहुपद', q:25, time:30, available:false},
+          {name:'निर्देशांक ज्यामिति', q:20, time:25, available:false},
+          {name:'दो चरों में रेखीय समीकरण', q:20, time:25, available:false},
+          {name:'यूक्लिड की ज्यामिति', q:15, time:20, available:false},
+          {name:'रेखाएं और कोण', q:20, time:25, available:false},
+          {name:'त्रिभुज', q:25, time:30, available:false},
+        ]},
+      { name:'विज्ञान (Science)', icon:'🔬', color:'#10b981', bg:'#d1fae5',
+        chapters:[
+          {name:'हमारे आस-पास के पदार्थ', q:20, time:25, available:false},
+          {name:'क्या हमारे आस-पास के पदार्थ शुद्ध हैं', q:20, time:25, available:false},
+          {name:'परमाणु एवं अणु', q:25, time:30, available:false},
+          {name:'परमाणु की संरचना', q:25, time:30, available:false},
+          {name:'जीवन की मौलिक इकाई', q:20, time:25, available:false},
+        ]},
+      { name:'सामाजिक विज्ञान (SST)', icon:'🌍', color:'#f59e0b', bg:'#fef3c7',
+        chapters:[
+          {name:'फ्रांसीसी क्रांति', q:20, time:25, available:false},
+          {name:'यूरोप में समाजवाद', q:20, time:25, available:false},
+          {name:'नाजीवाद', q:20, time:25, available:false},
+        ]},
+      { name:'English', icon:'🔤', color:'#ef4444', bg:'#fee2e2',
+        chapters:[
+          {name:'The Fun They Had', q:15, time:20, available:false},
+          {name:'The Sound of Music', q:15, time:20, available:false},
+        ]},
+    ]
+  },
+  '10': {
+    subjects: [
+      { name:'गणित (Math)', icon:'📐', color:'#1a3ac4', bg:'#e0f0ff',
+        chapters:[
+          {name:'वास्तविक संख्याएं', q:25, time:30, available:true, file:'class10_math_realnumbers.html'},
+          {name:'बहुपद', q:25, time:30, available:false},
+          {name:'दो चरों में रैखिक समीकरण', q:25, time:30, available:false},
+          {name:'द्विघात समीकरण', q:25, time:30, available:false},
+          {name:'समांतर श्रेढ़ी (AP)', q:25, time:30, available:false},
+          {name:'त्रिभुज', q:25, time:30, available:false},
+          {name:'निर्देशांक ज्यामिति', q:20, time:25, available:false},
+          {name:'त्रिकोणमिति का परिचय', q:25, time:30, available:false},
+          {name:'त्रिकोणमिति के अनुप्रयोग', q:20, time:25, available:false},
+          {name:'वृत्त', q:20, time:25, available:false},
+          {name:'रचनाएं', q:15, time:20, available:false},
+          {name:'वृत्तों से संबंधित क्षेत्रफल', q:20, time:25, available:false},
+          {name:'पृष्ठीय क्षेत्रफल और आयतन', q:25, time:30, available:false},
+          {name:'सांख्यिकी', q:20, time:25, available:false},
+          {name:'प्रायिकता', q:20, time:25, available:false},
+        ]},
+      { name:'विज्ञान (Science)', icon:'🔬', color:'#10b981', bg:'#d1fae5',
+        chapters:[
+          {name:'रासायनिक अभिक्रियाएं', q:25, time:30, available:false},
+          {name:'अम्ल, क्षार और लवण', q:25, time:30, available:false},
+          {name:'धातु और अधातु', q:25, time:30, available:false},
+          {name:'कार्बन और उसके यौगिक', q:25, time:30, available:false},
+          {name:'तत्वों का आवर्त वर्गीकरण', q:20, time:25, available:false},
+          {name:'जैव प्रक्रम', q:25, time:30, available:false},
+          {name:'नियंत्रण और समन्वय', q:25, time:30, available:false},
+          {name:'जीव जनन कैसे करते हैं', q:20, time:25, available:false},
+          {name:'आनुवांशिकता', q:20, time:25, available:false},
+          {name:'प्रकाश — परावर्तन और अपवर्तन', q:25, time:30, available:false},
+          {name:'मानव नेत्र', q:20, time:25, available:false},
+          {name:'विद्युत', q:25, time:30, available:false},
+          {name:'विद्युत धारा के चुंबकीय प्रभाव', q:20, time:25, available:false},
+          {name:'ऊर्जा के स्रोत', q:20, time:25, available:false},
+          {name:'हमारा पर्यावरण', q:15, time:20, available:false},
+        ]},
+      { name:'सामाजिक विज्ञान (SST)', icon:'🌍', color:'#f59e0b', bg:'#fef3c7',
+        chapters:[
+          {name:'यूरोप में राष्ट्रवाद', q:20, time:25, available:false},
+          {name:'भारत में राष्ट्रवाद', q:20, time:25, available:false},
+          {name:'भूमंडलीकृत विश्व', q:20, time:25, available:false},
+          {name:'औद्योगीकरण का युग', q:20, time:25, available:false},
+          {name:'मुद्रण संस्कृति', q:15, time:20, available:false},
+        ]},
+      { name:'हिन्दी (Hindi)', icon:'📖', color:'#8b5cf6', bg:'#ede9fe',
+        chapters:[
+          {name:'सूरदास — पद', q:15, time:20, available:false},
+          {name:'राम-लक्ष्मण-परशुराम संवाद', q:15, time:20, available:false},
+          {name:'नेताजी का चश्मा', q:15, time:20, available:false},
+        ]},
+      { name:'English', icon:'🔤', color:'#ef4444', bg:'#fee2e2',
+        chapters:[
+          {name:'A Letter to God', q:15, time:20, available:false},
+          {name:'Nelson Mandela', q:15, time:20, available:false},
+          {name:'Two Stories about Flying', q:15, time:20, available:false},
+        ]},
+    ]
+  },
+  '11S': {
+    subjects: [
+      { name:'Physics (भौतिकी)', icon:'⚡', color:'#0a1f6e', bg:'#e0f0ff',
+        chapters:[
+          {name:'भौतिक जगत और मापन', q:25, time:30, available:false},
+          {name:'सरल रेखा में गति', q:25, time:30, available:false},
+          {name:'समतल में गति', q:25, time:30, available:false},
+          {name:'गति के नियम', q:25, time:30, available:false},
+          {name:'कार्य, ऊर्जा और शक्ति', q:25, time:30, available:false},
+        ]},
+      { name:'Chemistry (रसायन)', icon:'🧪', color:'#10b981', bg:'#d1fae5',
+        chapters:[
+          {name:'रसायन विज्ञान की कुछ मूल अवधारणाएं', q:25, time:30, available:false},
+          {name:'परमाणु की संरचना', q:25, time:30, available:false},
+          {name:'तत्वों का वर्गीकरण', q:25, time:30, available:false},
+        ]},
+      { name:'Mathematics (गणित)', icon:'📐', color:'#1a3ac4', bg:'#e0eeff',
+        chapters:[
+          {name:'समुच्चय', q:25, time:30, available:false},
+          {name:'संबंध एवं फलन', q:25, time:30, available:false},
+          {name:'त्रिकोणमितीय फलन', q:25, time:30, available:false},
+        ]},
+      { name:'Biology (जीव विज्ञान)', icon:'🌿', color:'#059669', bg:'#d1fae5',
+        chapters:[
+          {name:'जीव जगत', q:20, time:25, available:false},
+          {name:'जीव जगत का वर्गीकरण', q:20, time:25, available:false},
+          {name:'वनस्पति जगत', q:20, time:25, available:false},
+        ]},
+    ]
+  },
+  '11A': {
+    subjects: [
+      { name:'इतिहास (History)', icon:'📜', color:'#92400e', bg:'#fef3c7',
+        chapters:[
+          {name:'समय की शुरुआत से', q:20, time:25, available:false},
+          {name:'लेखन और शहरी जीवन', q:20, time:25, available:false},
+          {name:'तीन महाद्वीपों में फैला साम्राज्य', q:20, time:25, available:false},
+        ]},
+      { name:'भूगोल (Geography)', icon:'🌏', color:'#0891b2', bg:'#e0f7ff',
+        chapters:[
+          {name:'भूगोल एक विषय के रूप में', q:15, time:20, available:false},
+          {name:'पृथ्वी की उत्पत्ति', q:20, time:25, available:false},
+        ]},
+      { name:'राजनीति विज्ञान', icon:'⚖️', color:'#7c3aed', bg:'#ede9fe',
+        chapters:[
+          {name:'संविधान: क्यों और कैसे', q:20, time:25, available:false},
+          {name:'भारतीय संविधान', q:20, time:25, available:false},
+        ]},
+    ]
+  },
+  '12S': {
+    subjects: [
+      { name:'Physics (भौतिकी)', icon:'⚡', color:'#0a1f6e', bg:'#e0f0ff',
+        chapters:[
+          {name:'वैद्युत आवेश तथा क्षेत्र', q:25, time:30, available:false},
+          {name:'स्थिर वैद्युत विभव', q:25, time:30, available:false},
+          {name:'धारा विद्युत', q:25, time:30, available:false},
+          {name:'चुम्बकत्व', q:25, time:30, available:false},
+        ]},
+      { name:'Chemistry (रसायन)', icon:'🧪', color:'#10b981', bg:'#d1fae5',
+        chapters:[
+          {name:'ठोस अवस्था', q:25, time:30, available:false},
+          {name:'विलयन', q:25, time:30, available:false},
+          {name:'वैद्युत रसायन', q:25, time:30, available:false},
+        ]},
+      { name:'Mathematics (गणित)', icon:'📐', color:'#1a3ac4', bg:'#e0eeff',
+        chapters:[
+          {name:'संबंध एवं फलन', q:25, time:30, available:false},
+          {name:'आव्यूह', q:25, time:30, available:false},
+          {name:'सारणिक', q:25, time:30, available:false},
+          {name:'अवकलन के अनुप्रयोग', q:25, time:30, available:false},
+        ]},
+    ]
+  },
+  '12A': {
+    subjects: [
+      { name:'इतिहास (History)', icon:'📜', color:'#92400e', bg:'#fef3c7',
+        chapters:[
+          {name:'ईंटें, मनके और अस्थियाँ', q:20, time:25, available:false},
+          {name:'राजा, किसान और नगर', q:20, time:25, available:false},
+          {name:'बंधुत्व, जाति और वर्ग', q:20, time:25, available:false},
+        ]},
+      { name:'भूगोल (Geography)', icon:'🌏', color:'#0891b2', bg:'#e0f7ff',
+        chapters:[
+          {name:'मानव भूगोल — प्रकृति एवं विषय', q:15, time:20, available:false},
+          {name:'विश्व जनसंख्या', q:20, time:25, available:false},
+        ]},
+      { name:'राजनीति विज्ञान', icon:'⚖️', color:'#7c3aed', bg:'#ede9fe',
+        chapters:[
+          {name:'शीत युद्ध का दौर', q:20, time:25, available:false},
+          {name:'दो ध्रुवीयता का अंत', q:20, time:25, available:false},
+        ]},
+    ]
+  }
+};
+
+let currentClass = '6';
+let studentName = localStorage.getItem('gsStudent') || '';
+let progress = JSON.parse(localStorage.getItem('gsProgress') || '{}');
+
+// Init
+if (studentName) {
+  document.getElementById('nameInput').value = studentName;
+  document.getElementById('studentName').textContent = studentName;
+  document.getElementById('progressName').textContent = studentName;
+  updateProgressDisplay();
+}
+renderSubjects('6');
+
+function selectClass(el, cls) {
+  document.querySelectorAll('.class-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentClass = cls;
+  renderSubjects(cls);
+}
+
+function renderSubjects(cls) {
+  const grid = document.getElementById('subjectGrid');
+  grid.innerHTML = '';
+  const data = classData[cls];
+  if (!data) return;
+
+  data.subjects.forEach(sub => {
+    const availableCount = sub.chapters.filter(c => c.available).length;
+    const doneCount = sub.chapters.filter((c,i) => progress[`${cls}_${sub.name}_${i}`]).length;
+    const pct = Math.round((availableCount / sub.chapters.length) * 100);
+
+    const card = document.createElement('div');
+    card.className = 'subject-card';
+    card.innerHTML = `
+      <div class="subject-header">
+        <div class="subject-icon" style="background:${sub.bg};color:${sub.color}">${sub.icon}</div>
+        <div>
+          <div class="subject-title">${sub.name}</div>
+          <div class="subject-meta">${sub.chapters.length} Chapters | ${availableCount} Tests Available</div>
+        </div>
+      </div>
+      <div class="subject-progress">
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${sub.color}"></div></div>
+        <div class="progress-text"><span>${availableCount} Available</span><span>${doneCount} Completed</span></div>
+      </div>
+      <div class="chapter-list">
+        ${sub.chapters.map((ch, i) => `
+          <div class="chapter-item ${!ch.available ? 'locked' : ''}" onclick="${ch.available ? `openTestModal('${cls}','${sub.name}',${i},'${ch.name}',${ch.q},${ch.time},'${ch.file||''}','${sub.icon}')` : 'openComingModal()'}">
+            <div class="chapter-left">
+              <div class="chapter-num" style="background:${sub.bg};color:${sub.color}">${i+1}</div>
+              <div>
+                <div class="chapter-name">${ch.name}</div>
+                <div class="chapter-sub">${ch.q} प्रश्न • ${ch.time} मिनट</div>
+              </div>
+            </div>
+            <div class="chapter-right">
+              ${progress[`${cls}_${sub.name}_${i}`] ? `<span class="test-badge badge-done">✅ ${progress[`${cls}_${sub.name}_${i}`]}%</span>` : ''}
+              ${ch.available
+                ? `<button class="start-test-btn" onclick="event.stopPropagation();openTestModal('${cls}','${sub.name}',${i},'${ch.name}',${ch.q},${ch.time},'${ch.file||''}','${sub.icon}')">Test दें →</button>`
+                : `<span class="test-badge badge-coming">🔜 जल्द</span>`
+              }
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+let currentTestFile = '';
+let currentTestKey = '';
+
+function openTestModal(cls, sub, chapIdx, chapName, q, time, file, icon) {
+  currentTestFile = file;
+  currentTestKey = `${cls}_${sub}_${chapIdx}`;
+  document.getElementById('modalEmoji').textContent = icon;
+  document.getElementById('modalTitle').textContent = chapName;
+  document.getElementById('modalSub').textContent = `Class ${cls} — ${sub}`;
+  document.getElementById('modalQ').textContent = q;
+  document.getElementById('modalTime').textContent = `${time} min`;
+  document.getElementById('modalMarks').textContent = q;
+  document.getElementById('modalPass').textContent = Math.round(q * 0.4);
+  document.getElementById('testModal').classList.add('open');
+
+  const startBtn = document.getElementById('modalStartBtn');
+  if (file) {
+    startBtn.onclick = () => { window.open(file, '_blank'); closeModal(); };
+    startBtn.textContent = '🚀 Test शुरू करें';
+  } else {
+    startBtn.onclick = () => { openComingModal(); closeModal(); };
+    startBtn.textContent = '🔜 जल्द आ रहा है';
+  }
+}
+
+function closeModal() { document.getElementById('testModal').classList.remove('open'); }
+function openComingModal() { document.getElementById('comingModal').classList.add('open'); }
+function closeComingModal() { document.getElementById('comingModal').classList.remove('open'); }
+
+function saveStudent() {
+  const name = document.getElementById('nameInput').value.trim();
+  if (!name) { alert('कृपया अपना नाम लिखें!'); return; }
+  studentName = name;
+  localStorage.setItem('gsStudent', name);
+  document.getElementById('studentName').textContent = name;
+  document.getElementById('progressName').textContent = name;
+  document.getElementById('loginBar').style.background = '#d1fae5';
+  document.getElementById('loginBar').innerHTML = `<div style="text-align:center;color:#065f46;font-weight:700;">✅ नमस्ते ${name}! आपकी progress save होगी।</div>`;
+  updateProgressDisplay();
+}
+
+function showLoginModal() {
+  document.getElementById('loginBar').scrollIntoView({behavior:'smooth'});
+}
+
+function updateProgressDisplay() {
+  const tests = Object.keys(progress).length;
+  const scores = Object.values(progress).map(Number).filter(Boolean);
+  const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
+  const best = scores.length ? Math.max(...scores) : 0;
+  document.getElementById('totalTests').textContent = tests;
+  document.getElementById('avgScore').textContent = avg + '%';
+  document.getElementById('bestScore').textContent = best + '%';
+  document.getElementById('chapDone').textContent = scores.filter(s => s >= 40).length;
+}
+
+// Close modals on overlay click
+document.getElementById('testModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('comingModal').addEventListener('click', function(e) {
+  if (e.target === this) closeComingModal();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 10th Math - Real Numbers Test | Gyansetu Academy</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background:#f0f6ff; color:#0a1f6e; }
+  
+  .header {
+    background: linear-gradient(135deg, #0a1f6e, #1a3ac4);
+    color: #fff; padding: 24px 20px; text-align: center;
+  }
+  .header h1 { font-size: 1.5rem; font-weight: 800; }
+  .header p { opacity: 0.85; margin-top: 6px; font-size: 0.95rem; }
+  .badges { display: flex; gap: 10px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+  .badge { background: rgba(255,255,255,0.15); padding: 5px 14px; border-radius: 50px; font-size: 0.82rem; }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 24px 16px; }
+
+  /* Timer */
+  .timer-box {
+    background: #fff; border-radius: 16px; padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 4px 16px rgba(10,31,110,0.1); margin-bottom: 24px;
+  }
+  .timer { font-size: 1.8rem; font-weight: 800; color: #1a3ac4; }
+  .timer.warning { color: #ef4444; animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .progress-bar { background: #e5eaf5; border-radius: 50px; height: 8px; flex: 1; margin: 0 16px; }
+  .progress-fill { background: linear-gradient(135deg, #1a3ac4, #00d4ff); height: 100%; border-radius: 50px; transition: width 0.3s; }
+
+  /* Instructions */
+  .instructions {
+    background: #fff; border-radius: 16px; padding: 24px;
+    box-shadow: 0 4px 16px rgba(10,31,110,0.1); margin-bottom: 24px;
+    border-left: 4px solid #1a3ac4;
+  }
+  .instructions h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+  .instructions ul { list-style: none; }
+  .instructions ul li { padding: 5px 0; font-size: 0.92rem; color: #444; }
+  .instructions ul li::before { content: '✅ '; }
+
+  /* Questions */
+  .question-card {
+    background: #fff; border-radius: 16px; padding: 24px;
+    box-shadow: 0 4px 16px rgba(10,31,110,0.1); margin-bottom: 20px;
+    border-top: 3px solid #1a3ac4; display: none;
+  }
+  .question-card.active { display: block; }
+  .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .q-num { background: linear-gradient(135deg, #1a3ac4, #00d4ff); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; }
+  .q-marks { background: #e0f7ff; color: #1a3ac4; padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; }
+  .q-text { font-size: 1rem; font-weight: 600; color: #0a1f6e; margin-bottom: 18px; line-height: 1.6; }
+  .q-type { font-size: 0.78rem; color: #6b7280; margin-bottom: 10px; }
+
+  /* Options */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    padding: 12px 16px; border: 2px solid #e5eaf5; border-radius: 12px;
+    cursor: pointer; transition: 0.2s; font-size: 0.92rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .option:hover { border-color: #1a3ac4; background: #f0f6ff; }
+  .option.selected { border-color: #1a3ac4; background: #e0f0ff; }
+  .option.correct { border-color: #10b981; background: #d1fae5; color: #065f46; }
+  .option.wrong { border-color: #ef4444; background: #fee2e2; color: #991b1b; }
+  .option-letter { width: 28px; height: 28px; border-radius: 50%; background: #f0f6ff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+
+  /* Short answer */
+  .short-answer { width: 100%; padding: 12px 16px; border: 2px solid #e5eaf5; border-radius: 12px; font-size: 0.92rem; font-family: 'Segoe UI', sans-serif; outline: none; resize: vertical; min-height: 80px; }
+  .short-answer:focus { border-color: #1a3ac4; }
+  .model-answer { display: none; background: #d1fae5; border-radius: 10px; padding: 12px 16px; margin-top: 12px; font-size: 0.88rem; color: #065f46; }
+  .model-answer strong { display: block; margin-bottom: 4px; }
+
+  /* Navigation */
+  .nav-btns { display: flex; gap: 12px; justify-content: space-between; margin-top: 20px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; font-size: 0.95rem; font-family: 'Segoe UI', sans-serif; transition: 0.2s; }
+  .btn-prev { background: #e5eaf5; color: #0a1f6e; }
+  .btn-next { background: linear-gradient(135deg, #1a3ac4, #00d4ff); color: #fff; }
+  .btn-submit { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* Question Navigator */
+  .q-navigator { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(10,31,110,0.1); margin-bottom: 24px; }
+  .q-navigator h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; color: #0a1f6e; }
+  .q-dots { display: flex; flex-wrap: wrap; gap: 8px; }
+  .q-dot { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #e5eaf5; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: 0.2s; }
+  .q-dot.current { border-color: #1a3ac4; background: #1a3ac4; color: #fff; }
+  .q-dot.answered { border-color: #10b981; background: #d1fae5; color: #065f46; }
+  .q-dot.skipped { border-color: #f59e0b; background: #fef3c7; }
+
+  /* Result */
+  .result-box { display: none; background: #fff; border-radius: 20px; padding: 40px 24px; text-align: center; box-shadow: 0 8px 40px rgba(10,31,110,0.15); }
+  .result-emoji { font-size: 4rem; margin-bottom: 16px; }
+  .result-score { font-size: 3rem; font-weight: 800; color: #1a3ac4; }
+  .result-total { font-size: 1rem; color: #6b7280; margin-bottom: 20px; }
+  .result-grade { display: inline-block; padding: 8px 24px; border-radius: 50px; font-weight: 800; font-size: 1.1rem; margin-bottom: 24px; }
+  .result-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  .stat-card { background: #f0f6ff; border-radius: 12px; padding: 16px; }
+  .stat-num { font-size: 1.8rem; font-weight: 800; }
+  .stat-label { font-size: 0.8rem; color: #6b7280; }
+  .retry-btn { background: linear-gradient(135deg, #1a3ac4, #00d4ff); color: #fff; border: none; padding: 14px 36px; border-radius: 50px; font-weight: 800; font-size: 1rem; cursor: pointer; font-family: 'Segoe UI', sans-serif; }
+  .review-btn { background: #e5eaf5; color: #0a1f6e; border: none; padding: 14px 36px; border-radius: 50px; font-weight: 800; font-size: 1rem; cursor: pointer; font-family: 'Segoe UI', sans-serif; margin-left: 10px; }
+
+  .start-screen { background: #fff; border-radius: 20px; padding: 40px 24px; text-align: center; box-shadow: 0 8px 40px rgba(10,31,110,0.15); }
+  .start-screen h2 { font-size: 1.6rem; font-weight: 800; color: #0a1f6e; margin-bottom: 10px; }
+  .start-screen p { color: #6b7280; margin-bottom: 24px; }
+  .test-info { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-bottom: 28px; }
+  .info-card { background: #f0f6ff; border-radius: 12px; padding: 16px; }
+  .info-card .num { font-size: 1.8rem; font-weight: 800; color: #1a3ac4; }
+  .info-card .label { font-size: 0.82rem; color: #6b7280; }
+  .start-btn { background: linear-gradient(135deg, #1a3ac4, #00d4ff); color: #fff; border: none; padding: 16px 48px; border-radius: 50px; font-weight: 800; font-size: 1.1rem; cursor: pointer; font-family: 'Segoe UI', sans-serif; }
+
+  .footer { text-align: center; padding: 20px; color: #6b7280; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🎓 ज्ञानसेतु एकेडमी</h1>
+  <p>Class 10th Mathematics — Chapter 1: Real Numbers (वास्तविक संख्याएं)</p>
+  <div class="badges">
+    <span class="badge">📚 NCERT Based</span>
+    <span class="badge">⏱️ 30 Minutes</span>
+    <span class="badge">📝 25 Questions</span>
+    <span class="badge">💯 50 Marks</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Start Screen -->
+  <div class="start-screen" id="startScreen">
+    <div style="font-size:3rem;margin-bottom:16px;">📝</div>
+    <h2>Real Numbers Test</h2>
+    <p>वास्तविक संख्याएं — Chapter 1 | Class 10th Math</p>
+    <div class="test-info">
+      <div class="info-card"><div class="num">25</div><div class="label">प्रश्न</div></div>
+      <div class="info-card"><div class="num">30</div><div class="label">मिनट</div></div>
+      <div class="info-card"><div class="num">50</div><div class="label">अंक</div></div>
+      <div class="info-card"><div class="num">20</div><div class="label">Pass Marks</div></div>
+    </div>
+    <div class="instructions" style="text-align:left;margin-bottom:24px;">
+      <h3>📋 निर्देश (Instructions):</h3>
+      <ul>
+        <li>Section A: 15 MCQ प्रश्न (1-1 अंक)</li>
+        <li>Section B: 5 Short Answer (2-2 अंक)</li>
+        <li>Section C: 5 Long Answer (3-3 अंक)</li>
+        <li>सभी प्रश्न अनिवार्य हैं</li>
+        <li>Calculator का उपयोग नहीं करें</li>
+        <li>समय समाप्त होने पर Test automatic submit होगा</li>
+      </ul>
+    </div>
+    <button class="start-btn" onclick="startTest()">🚀 Test शुरू करें</button>
+  </div>
+
+  <!-- Test Screen -->
+  <div id="testScreen" style="display:none;">
+    <!-- Timer -->
+    <div class="timer-box">
+      <div>
+        <div style="font-size:0.75rem;color:#6b7280;margin-bottom:2px;">⏱️ समय बचा है</div>
+        <div class="timer" id="timer">30:00</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div style="text-align:right;">
+        <div style="font-size:0.75rem;color:#6b7280;margin-bottom:2px;">प्रश्न</div>
+        <div style="font-weight:800;color:#1a3ac4;" id="qCounter">1/25</div>
+      </div>
+    </div>
+
+    <!-- Question Navigator -->
+    <div class="q-navigator">
+      <h4>📊 प्रश्न Navigator:</h4>
+      <div class="q-dots" id="qDots"></div>
+    </div>
+
+    <!-- Questions -->
+    <div id="questionsContainer"></div>
+
+    <!-- Nav Buttons -->
+    <div class="nav-btns">
+      <button class="btn btn-prev" id="prevBtn" onclick="prevQ()" disabled>← पिछला</button>
+      <button class="btn btn-next" id="nextBtn" onclick="nextQ()">अगला →</button>
+      <button class="btn btn-submit" id="submitBtn" onclick="submitTest()" style="display:none;">✅ Submit करें</button>
+    </div>
+  </div>
+
+  <!-- Result Screen -->
+  <div class="result-box" id="resultScreen"></div>
+
+</div>
+
+<div class="footer">🎓 ज्ञानसेतु एकेडमी, बिरौल, दरभंगा | 📞 7856803831</div>
+
+<script>
+const questions = [
+  // ===== SECTION A: MCQ (1 mark each) =====
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "यूक्लिड विभाजन एल्गोरिथ्म किस पर आधारित है?",
+    options: ["यूक्लिड विभाजन प्रमेय", "अंकगणित का मूल प्रमेय", "फर्मा की प्रमेय", "पाइथागोरस प्रमेय"],
+    correct: 0,
+    explanation: "यूक्लिड विभाजन एल्गोरिथ्म, यूक्लिड विभाजन प्रमेय (Lemma) पर आधारित है।"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "HCF(306, 657) = 9 है, तो LCM(306, 657) क्या होगा?",
+    options: ["22338", "22339", "22340", "22337"],
+    correct: 0,
+    explanation: "LCM × HCF = a × b\nLCM = (306 × 657) / 9 = 22338"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "√2 है एक:",
+    options: ["परिमेय संख्या", "अपरिमेय संख्या", "पूर्ण संख्या", "प्राकृत संख्या"],
+    correct: 1,
+    explanation: "√2 एक अपरिमेय संख्या है क्योंकि इसे p/q के रूप में नहीं लिखा जा सकता।"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "संख्या 3825 के अभाज्य गुणनखंड में 5 की घात क्या है?",
+    options: ["1", "2", "3", "4"],
+    correct: 1,
+    explanation: "3825 = 3 × 1275 = 3 × 3 × 425 = 3² × 5² × 17\nइसलिए 5 की घात = 2"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "यदि a = 2³ × 3, b = 2 × 3 × 5, c = 3ⁿ × 5 हो, तो LCM(a,b,c) = 2³ × 3 × 5 के लिए n का मान:",
+    options: ["n = 1", "n = 2", "n = 0", "n = 3"],
+    correct: 0,
+    explanation: "LCM में 3 की घात 1 है, इसलिए n = 1"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "0.375 को p/q रूप में लिखने पर:",
+    options: ["3/8", "3/4", "3/5", "1/3"],
+    correct: 0,
+    explanation: "0.375 = 375/1000 = 3/8"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "अभाज्य संख्याओं का गुणनफल हमेशा होता है:",
+    options: ["अभाज्य", "भाज्य", "1", "0"],
+    correct: 1,
+    explanation: "दो या दो से अधिक अभाज्य संख्याओं का गुणनफल हमेशा भाज्य (composite) होता है।"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "यूक्लिड विभाजन प्रमेय के अनुसार, a = bq + r में r की range है:",
+    options: ["0 ≤ r < b", "0 < r < b", "0 ≤ r ≤ b", "0 < r ≤ b"],
+    correct: 0,
+    explanation: "यूक्लिड प्रमेय में a = bq + r जहाँ 0 ≤ r < b"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "1.272727... को p/q रूप में लिखें:",
+    options: ["14/11", "127/99", "14/99", "127/100"],
+    correct: 0,
+    explanation: "x = 1.272727...\n100x = 127.272727...\n99x = 126\nx = 126/99 = 14/11"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "HCF(2³ × 3² × 5, 2² × 3 × 7) क्या होगा?",
+    options: ["2² × 3", "2³ × 3²", "2 × 3 × 5 × 7", "2² × 3 × 5 × 7"],
+    correct: 0,
+    explanation: "HCF के लिए common prime factors की सबसे छोटी घात लेते हैं।\nHCF = 2² × 3 = 12"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "निम्न में से कौन सी संख्या अपरिमेय है?",
+    options: ["√4", "√9", "√7", "√16"],
+    correct: 2,
+    explanation: "√7 अपरिमेय है। √4=2, √9=3, √16=4 परिमेय हैं।"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "किसी धनात्मक पूर्णांक n के लिए, 6n इकाई का अंक कभी नहीं हो सकता:",
+    options: ["2", "4", "0", "6"],
+    correct: 2,
+    explanation: "6n के इकाई अंक हमेशा 6 होता है (n≥1)। 0 इकाई अंक नहीं हो सकता क्योंकि इसके लिए 2 और 5 दोनों गुणनखंड चाहिए।"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "दो संख्याओं का LCM 182 और HCF 13 है। यदि एक संख्या 26 है, तो दूसरी:",
+    options: ["91", "182", "39", "78"],
+    correct: 0,
+    explanation: "दूसरी संख्या = (LCM × HCF) / पहली\n= (182 × 13) / 26 = 91"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "3 + 2√5 है:",
+    options: ["परिमेय", "अपरिमेय", "पूर्णांक", "प्राकृत संख्या"],
+    correct: 1,
+    explanation: "√5 अपरिमेय है, इसलिए 2√5 और 3 + 2√5 भी अपरिमेय है।"
+  },
+  {
+    section: "A", type: "mcq", marks: 1,
+    question: "अभाज्य गुणनखंड प्रमेय (Fundamental Theorem of Arithmetic) कहता है:",
+    options: [
+      "हर संख्या अभाज्य है",
+      "हर भाज्य संख्या को अभाज्य गुणनखंडों के गुणनफल के रूप में uniquely लिखा जा सकता है",
+      "हर संख्या का HCF 1 होता है",
+      "अभाज्य संख्याएं अनंत नहीं होतीं"
+    ],
+    correct: 1,
+    explanation: "अंकगणित का मूल प्रमेय: हर भाज्य संख्या को अभाज्य गुणनखंडों के गुणनफल के रूप में uniquely व्यक्त किया जा सकता है।"
+  },
+
+  // ===== SECTION B: Short Answer (2 marks each) =====
+  {
+    section: "B", type: "short", marks: 2,
+    question: "यूक्लिड विभाजन एल्गोरिथ्म का उपयोग करके HCF(135, 225) ज्ञात करें।",
+    modelAnswer: "225 = 135 × 1 + 90\n135 = 90 × 1 + 45\n90 = 45 × 2 + 0\n\nइसलिए HCF(135, 225) = 45"
+  },
+  {
+    section: "B", type: "short", marks: 2,
+    question: "सिद्ध करें कि √3 अपरिमेय है।",
+    modelAnswer: "माना √3 = p/q (जहाँ p और q सहअभाज्य हैं)\n3 = p²/q²\np² = 3q²\nइसलिए 3, p² का भाजक है → 3, p का भाजक है\np = 3m रखने पर: 9m² = 3q² → q² = 3m²\nइसलिए 3, q का भी भाजक है\nयह p और q के सहअभाज्य होने का विरोधाभास है।\nइसलिए √3 अपरिमेय है। ✓"
+  },
+  {
+    section: "B", type: "short", marks: 2,
+    question: "144 के अभाज्य गुणनखंड ज्ञात करें और LCM(144, 198) निकालें।",
+    modelAnswer: "144 = 2⁴ × 3²\n198 = 2 × 3² × 11\n\nLCM = 2⁴ × 3² × 11\n= 16 × 9 × 11\n= 1584"
+  },
+  {
+    section: "B", type: "short", marks: 2,
+    question: "0.6 + 0.77 + 0.423 को p/q रूप में बदलें।",
+    modelAnswer: "0.6̄ = 6/9 = 2/3\n0.7̄7̄ = 77/99 = 7/9\n0.4̄2̄3̄ = 423/999 = 141/333 = 47/111\n\nयोग = 2/3 + 7/9 + 47/111\n= 74/111 + 86.33/111...\n\nNote: प्रत्येक को अलग p/q में बदलें और योग करें।"
+  },
+  {
+    section: "B", type: "short", marks: 2,
+    question: "किसी खेल में 3 खिलाड़ी एक ही बिंदु से शुरू होते हैं और एक वृत्त को क्रमशः 16 min, 18 min, 48 min में पूरा करते हैं। वे फिर से एक साथ कब मिलेंगे?",
+    modelAnswer: "LCM(16, 18, 48) ज्ञात करना है:\n16 = 2⁴\n18 = 2 × 3²\n48 = 2⁴ × 3\n\nLCM = 2⁴ × 3² = 144 मिनट\n\nतीनों 144 मिनट बाद मिलेंगे।"
+  },
+
+  // ===== SECTION C: Long Answer (3 marks each) =====
+  {
+    section: "C", type: "short", marks: 3,
+    question: "सिद्ध करें कि √5 अपरिमेय है। इसकी सहायता से सिद्ध करें कि 2 + √5 भी अपरिमेय है।",
+    modelAnswer: "Part 1: √5 अपरिमेय है\nमाना √5 = p/q (सहअभाज्य)\n5q² = p² → 5|p → p=5m\n5q² = 25m² → q² = 5m² → 5|q\nविरोधाभास! इसलिए √5 अपरिमेय है।\n\nPart 2: 2+√5 अपरिमेय है\nमाना 2+√5 = r/s (परिमेय)\n√5 = r/s - 2 = (r-2s)/s\nयह √5 को परिमेय बनाता है — विरोधाभास!\nइसलिए 2+√5 अपरिमेय है। ✓"
+  },
+  {
+    section: "C", type: "short", marks: 3,
+    question: "यूक्लिड एल्गोरिथ्म से HCF(4052, 12576) ज्ञात करें और फिर LCM भी निकालें।",
+    modelAnswer: "12576 = 4052 × 3 + 420\n4052 = 420 × 9 + 272\n420 = 272 × 1 + 148\n272 = 148 × 1 + 124\n148 = 124 × 1 + 24\n124 = 24 × 5 + 4\n24 = 4 × 6 + 0\n\nHCF = 4\n\nLCM = (4052 × 12576) / 4\n= 50,93,904 / 4 = 12,73,476"
+  },
+  {
+    section: "C", type: "short", marks: 3,
+    question: "सिद्ध करें कि कोई भी धनात्मक विषम पूर्णांक 6q+1, 6q+3, या 6q+5 के रूप में होता है, जहाँ q कोई पूर्णांक है।",
+    modelAnswer: "यूक्लिड प्रमेय से: a = 6q + r (0 ≤ r < 6)\n\nr = 0: a = 6q (सम)\nr = 1: a = 6q+1 (विषम) ✓\nr = 2: a = 6q+2 (सम)\nr = 3: a = 6q+3 (विषम) ✓\nr = 4: a = 6q+4 (सम)\nr = 5: a = 6q+5 (विषम) ✓\n\nइसलिए सभी धनात्मक विषम पूर्णांक 6q+1, 6q+3 या 6q+5 रूप में होते हैं। ✓"
+  },
+  {
+    section: "C", type: "short", marks: 3,
+    question: "तीन घंटियाँ क्रमशः 6, 12 और 18 मिनट के अंतराल पर बजती हैं। यदि वे एक साथ 6:00 बजे बजती हैं, तो अगली बार वे एक साथ कब बजेंगी? यह भी बताएं कि 30 मिनट में वे कितनी बार एक साथ बजेंगी?",
+    modelAnswer: "LCM(6, 12, 18):\n6 = 2 × 3\n12 = 2² × 3\n18 = 2 × 3²\nLCM = 2² × 3² = 36 मिनट\n\nवे 6:36 AM पर एक साथ बजेंगी।\n\n30 मिनट में: 30/36 < 1\nइसलिए 30 मिनट में वे दोबारा एक साथ नहीं बजेंगी।\n(शुरुआत में 1 बार + 0 बार = केवल प्रारंभ में)"
+  }
+];
+
+let currentQ = 0;
+let answers = new Array(questions.length).fill(null);
+let timerInterval;
+let timeLeft = 30 * 60;
+let testStarted = false;
+
+function startTest() {
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('testScreen').style.display = 'block';
+  buildQuestions();
+  buildDots();
+  startTimer();
+  showQ(0);
+}
+
+function buildQuestions() {
+  const container = document.getElementById('questionsContainer');
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-card';
+    div.id = `q${i}`;
+
+    let sectionLabel = q.section === 'A' ? 'Section A — MCQ' : q.section === 'B' ? 'Section B — Short Answer' : 'Section C — Long Answer';
+
+    let optionsHTML = '';
+    if (q.type === 'mcq') {
+      optionsHTML = `<div class="options">` + q.options.map((opt, oi) =>
+        `<div class="option" id="opt${i}_${oi}" onclick="selectOption(${i},${oi})">
+          <div class="option-letter">${['A','B','C','D'][oi]}</div>${opt}
+        </div>`
+      ).join('') + `</div>`;
+    } else {
+      optionsHTML = `
+        <textarea class="short-answer" id="ans${i}" placeholder="यहाँ अपना उत्तर लिखें..." onchange="saveShort(${i})" rows="4"></textarea>
+        <div class="model-answer" id="model${i}">
+          <strong>📖 Model Answer:</strong>
+          <pre style="white-space:pre-wrap;font-family:inherit;">${q.modelAnswer}</pre>
+        </div>
+        <button onclick="showModel(${i})" style="margin-top:10px;background:#e0f7ff;border:none;padding:8px 18px;border-radius:50px;color:#1a3ac4;font-weight:700;cursor:pointer;font-size:0.85rem;">💡 Model Answer देखें</button>
+      `;
+    }
+
+    div.innerHTML = `
+      <div class="q-header">
+        <div class="q-num">${i+1}</div>
+        <div>
+          <span style="font-size:0.78rem;color:#6b7280;">${sectionLabel}</span>
+          <span class="q-marks" style="margin-left:8px;">${q.marks} अंक</span>
+        </div>
+      </div>
+      <div class="q-text">${q.question}</div>
+      ${optionsHTML}
+      ${q.type === 'mcq' && q.explanation ? `<div id="exp${i}" style="display:none;background:#fef3c7;border-radius:10px;padding:12px;margin-top:12px;font-size:0.85rem;color:#92400e;"><strong>💡 Explanation:</strong><br>${q.explanation}</div>` : ''}
+    `;
+    container.appendChild(div);
+  });
+}
+
+function buildDots() {
+  const dotsDiv = document.getElementById('qDots');
+  questions.forEach((q, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'q-dot';
+    dot.id = `dot${i}`;
+    dot.textContent = i + 1;
+    dot.onclick = () => showQ(i);
+    dotsDiv.appendChild(dot);
+  });
+}
+
+function showQ(index) {
+  document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+  document.getElementById(`q${index}`).classList.add('active');
+  currentQ = index;
+
+  document.querySelectorAll('.q-dot').forEach((d,i) => {
+    d.classList.remove('current');
+    if (answers[i] !== null) d.classList.add('answered');
+  });
+  document.getElementById(`dot${index}`).classList.add('current');
+  document.getElementById(`dot${index}`).classList.remove('answered');
+
+  document.getElementById('qCounter').textContent = `${index+1}/${questions.length}`;
+  document.getElementById('progressFill').style.width = `${((index+1)/questions.length)*100}%`;
+
+  document.getElementById('prevBtn').disabled = index === 0;
+  const isLast = index === questions.length - 1;
+  document.getElementById('nextBtn').style.display = isLast ? 'none' : 'inline-block';
+  document.getElementById('submitBtn').style.display = isLast ? 'inline-block' : 'none';
+}
+
+function selectOption(qIndex, optIndex) {
+  if (answers[qIndex] !== null && questions[qIndex].type === 'mcq') return;
+  answers[qIndex] = optIndex;
+  document.querySelectorAll(`[id^="opt${qIndex}_"]`).forEach(o => o.classList.remove('selected'));
+  document.getElementById(`opt${qIndex}_${optIndex}`).classList.add('selected');
+  document.getElementById(`dot${qIndex}`).classList.add('answered');
+}
+
+function saveShort(qIndex) {
+  const val = document.getElementById(`ans${qIndex}`).value;
+  answers[qIndex] = val || null;
+  if (val) document.getElementById(`dot${qIndex}`).classList.add('answered');
+}
+
+function showModel(qIndex) {
+  document.getElementById(`model${qIndex}`).style.display = 'block';
+}
+
+function nextQ() { if (currentQ < questions.length - 1) showQ(currentQ + 1); }
+function prevQ() { if (currentQ > 0) showQ(currentQ - 1); }
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if (timeLeft <= 300) timerEl.classList.add('warning');
+    if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
+  }, 1000);
+}
+
+function submitTest() {
+  clearInterval(timerInterval);
+
+  // Calculate MCQ score
+  let mcqScore = 0;
+  let correct = 0, wrong = 0, skipped = 0;
+
+  questions.forEach((q, i) => {
+    if (q.type === 'mcq') {
+      if (answers[i] === null) { skipped++; return; }
+      if (answers[i] === q.correct) { mcqScore += q.marks; correct++; }
+      else wrong++;
+    }
+  });
+
+  const shortScore = 0; // Self evaluated
+  const totalMCQ = mcqScore;
+  const totalPossibleMCQ = 15;
+
+  document.getElementById('testScreen').style.display = 'none';
+  const resultDiv = document.getElementById('resultScreen');
+  resultDiv.style.display = 'block';
+
+  let emoji = correct >= 12 ? '🏆' : correct >= 9 ? '😊' : correct >= 6 ? '📚' : '💪';
+  let grade = correct >= 12 ? 'Excellent! A+' : correct >= 9 ? 'Good! B+' : correct >= 6 ? 'Average C' : 'Need Practice';
+  let gradeColor = correct >= 12 ? '#10b981' : correct >= 9 ? '#3b82f6' : correct >= 6 ? '#f59e0b' : '#ef4444';
+
+  resultDiv.innerHTML = `
+    <div class="result-emoji">${emoji}</div>
+    <div class="result-score">${mcqScore}/${totalPossibleMCQ}</div>
+    <div class="result-total">MCQ Score (Section A)</div>
+    <div class="result-grade" style="background:${gradeColor};color:#fff;">${grade}</div>
+    <div class="result-stats">
+      <div class="stat-card">
+        <div class="stat-num" style="color:#10b981;">${correct}</div>
+        <div class="stat-label">✅ सही</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:#ef4444;">${wrong}</div>
+        <div class="stat-label">❌ गलत</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:#f59e0b;">${skipped}</div>
+        <div class="stat-label">⏭️ Skip</div>
+      </div>
+    </div>
+    <div style="background:#e0f7ff;border-radius:12px;padding:14px;margin-bottom:20px;font-size:0.88rem;color:#0a1f6e;">
+      <strong>📝 Note:</strong> Section B और C के उत्तर Model Answer से खुद check करें।<br>
+      Section B+C के लिए अधिकतम 25 अंक और मिल सकते हैं।
+    </div>
+    <div style="background:#f0f6ff;border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;">
+      <strong style="display:block;margin-bottom:8px;">💡 Weak Areas:</strong>
+      <div style="font-size:0.88rem;color:#444;">
+        ${wrong > 5 ? '• अभाज्य गुणनखंड और HCF/LCM practice करें' : ''}
+        ${skipped > 3 ? '• सभी प्रश्न attempt करने की आदत डालें' : ''}
+        ${correct >= 12 ? '• बहुत बढ़िया! Section B और C पर focus करें' : '• NCERT examples दोबारा पढ़ें'}
+      </div>
+    </div>
+    <button class="retry-btn" onclick="location.reload()">🔄 फिर से Try करें</button>
+    <button class="review-btn" onclick="reviewAnswers()">📋 Answers Review करें</button>
+  `;
+}
+
+function reviewAnswers() {
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('testScreen').style.display = 'block';
+
+  // Show correct/wrong
+  questions.forEach((q, i) => {
+    if (q.type === 'mcq') {
+      const correctOpt = document.getElementById(`opt${i}_${q.correct}`);
+      if (correctOpt) correctOpt.classList.add('correct');
+      if (answers[i] !== null && answers[i] !== q.correct) {
+        const wrongOpt = document.getElementById(`opt${i}_${answers[i]}`);
+        if (wrongOpt) wrongOpt.classList.add('wrong');
+      }
+      const exp = document.getElementById(`exp${i}`);
+      if (exp) exp.style.display = 'block';
+    }
+  });
+  showQ(0);
+  document.getElementById('submitBtn').style.display = 'none';
+  document.getElementById('nextBtn').style.display = 'inline-block';
+}
+</script>
+</body>
+</html>
