@@ -1406,7 +1406,7 @@ async function askAI(userMsg){
   body: JSON.stringify({ message: userMsg })
 });
     const data=await response.json();
-    const reply = data.reply;
+    const reply = data.message || "No reply";
     chatHistory.push({role:'assistant',content:reply});removeTyping();addBotMsg(reply,getQuickReplies(userMsg));
   }catch(e){removeTyping();addBotMsg('माफ करें, अभी AI उपलब्ध नहीं है।\n📞 सीधे कॉल करें: 7856803831',['📞 कॉल करें','💬 WhatsApp']);}
 }
